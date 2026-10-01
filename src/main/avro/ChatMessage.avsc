@@ -1,0 +1,17 @@
+{
+  "type": "record",
+  "name": "ChatMessageAvro",
+  "namespace": "io.projectZ.avroSchema",
+  "doc": "Wire format for a chat message read from Kafka. rawPayload is intentionally raw bytes (not a string) because it currently carries text but is expected to carry voice/image data later without requiring a schema change.",
+  "fields": [
+    { "name": "id",      "type": "string", "doc": "broker identifier" },
+    { "name": "type",      "type": "string", "doc": "message type" },
+    { "name": "consumerGroupIdentifier",      "type": "string", "doc": "an identifier inside group for future requirements" },
+    { "name": "messageId",      "type": "string", "doc": "UUID string" },
+    { "name": "conversationId", "type": "string"},
+    { "name": "senderId",       "type": "string" },
+    { "name": "receiverId",     "type": "string" },
+    { "name": "timestamp",      "type": "long",   "doc": "epoch millis" },
+    { "name": "rawPayload",     "type": "bytes",  "doc": "opaque payload: text today, may be voice/image/etc. later" }
+  ]
+}

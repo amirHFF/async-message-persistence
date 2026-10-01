@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.project-z</groupId>
+    <artifactId>chat-message-persistence</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>chat-message-persistence</name>
+    <description>
+        Kafka consumer that persists chat messages (byte[], Avro-encoded) into a pluggable
+        storage backend (Redis by default), with manual offset management (no data loss)
+        and a Dead Letter Topic for poison-pill / unrecoverable messages. Implemented with
+        the plain Apache Kafka client (no spring-kafka) to keep the dependency footprint
+        and memory footprint minimal.
+    </description>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <kafka-clients.version>3.7.1</kafka-clients.version>
+        <jedis.version>5.1.3</jedis.version>
+        <slf4j.version>2.0.13</slf4j.version>
+        <avro.version>1.11.3</avro.version>
+
+        <junit.version>5.10.2</junit.version>
+        <mockito.version>5.11.0</mockito.version>
+
+        <main.class>io.ProjectZ.App</main.class>
+    </properties>
+
+    <dependencies>
+        <!-- Raw Kafka client only. spring-kafka is intentionally NOT used per requirements. -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${kafka-clients.version}</version>
+        </dependency>
+
+        <!-- Wire format for Kafka record values: Avro binary encoding via generated
+             SpecificRecord classes (avro-maven-plugin below), not Avro's JSON encoding
+             and not Confluent's schema-registry serializer (no registry dependency). -->
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+            <version>${avro.version}</version>
+        </dependency>
+
+        <!-- Redis client. Jedis chosen over Lettuce (Netty-based) for a thin, synchronous,
+             blocking client with a smaller memory/thread footprint - a good fit for a
+             single-threaded, low-throughput archival consumer. -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+
+        <!-- Logging facade + tiny binding, no logback/log4j framework overhead -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>chat-message-persistence</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+
+            <!-- Generates com.chatpersistence.avro.ChatMessageAvro from
+                 src/main/avro/ChatMessage.avsc during the generate-sources phase.
+                 The generated class is NOT hand-written / NOT checked in. -->
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>${avro.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/avro/</outputDirectory>
+                            <!-- java.lang.String getters instead of CharSequence/Utf8 -->
+                            <stringType>String</stringType>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Build a single runnable fat jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${main.class}</mainClass>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
