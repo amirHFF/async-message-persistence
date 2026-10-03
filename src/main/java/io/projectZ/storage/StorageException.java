@@ -1,4 +1,4 @@
-package io.ProjectZ.storage;
+package io.projectZ.storage;
 
 /**
  * Signals a failure to persist a message.

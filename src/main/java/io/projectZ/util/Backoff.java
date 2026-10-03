@@ -1,4 +1,4 @@
-package io.ProjectZ.util;
+package io.projectZ.util;
 
 /** Tiny exponential backoff helper - avoids pulling in a resilience library for one calculation. */
 public final class Backoff {

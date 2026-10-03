@@ -1,7 +1,7 @@
-package io.ProjectZ.storage;
+package io.projectZ.storage;
 
-import io.ProjectZ.config.AppConfig;
-import io.ProjectZ.model.ChatMessage;
+import io.projectZ.config.AppConfig;
+import io.projectZ.model.ChatMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;

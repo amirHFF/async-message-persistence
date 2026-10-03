@@ -1,4 +1,4 @@
-package io.ProjectZ.dlt;
+package io.projectZ.dlt;
 
 import java.io.Closeable;
 

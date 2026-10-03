@@ -1,7 +1,7 @@
-package io.ProjectZ.codec;
+package io.projectZ.codec;
 
-import io.ProjectZ.model.ChatMessage;
 import io.projectZ.avroSchema.ChatMessageAvro;
+import io.projectZ.model.ChatMessage;
 import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.io.BinaryDecoder;
 import org.apache.avro.io.BinaryEncoder;

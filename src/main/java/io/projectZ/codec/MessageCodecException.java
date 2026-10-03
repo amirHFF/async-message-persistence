@@ -1,6 +1,6 @@
-package io.ProjectZ.codec;
+package io.projectZ.codec;
 
-import io.ProjectZ.model.ChatMessage;
+import io.projectZ.model.ChatMessage;
 
 /** Thrown when a raw payload cannot be decoded into a {@link ChatMessage}. */
 public class MessageCodecException extends Exception {

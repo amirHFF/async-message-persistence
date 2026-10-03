@@ -1,8 +1,8 @@
-package io.ProjectZ.storage;
+package io.projectZ.storage;
 
-import io.ProjectZ.model.ChatMessage;
-import io.ProjectZ.codec.MessageCodec;
-import io.ProjectZ.consumer.MessagePersistenceConsumer;
+import io.projectZ.model.ChatMessage;
+import io.projectZ.codec.MessageCodec;
+import io.projectZ.consumer.MessagePersistenceConsumer;
 
 import java.io.Closeable;
 

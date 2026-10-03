@@ -1,13 +1,13 @@
-package io.ProjectZ.consumer;
+package io.projectZ.consumer;
 
-import io.ProjectZ.codec.MessageCodec;
-import io.ProjectZ.codec.MessageCodecException;
-import io.ProjectZ.config.AppConfig;
-import io.ProjectZ.dlt.DeadLetterPublisher;
-import io.ProjectZ.model.ChatMessage;
-import io.ProjectZ.storage.MessageRepository;
-import io.ProjectZ.storage.StorageException;
-import io.ProjectZ.util.Backoff;
+import io.projectZ.codec.MessageCodec;
+import io.projectZ.codec.MessageCodecException;
+import io.projectZ.config.AppConfig;
+import io.projectZ.dlt.DeadLetterPublisher;
+import io.projectZ.model.ChatMessage;
+import io.projectZ.storage.MessageRepository;
+import io.projectZ.storage.StorageException;
+import io.projectZ.util.Backoff;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

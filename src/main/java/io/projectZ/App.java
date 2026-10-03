@@ -1,13 +1,13 @@
-package io.ProjectZ;
+package io.projectZ;
 
-import io.ProjectZ.codec.BinaryMessageCodec;
-import io.ProjectZ.codec.MessageCodec;
-import io.ProjectZ.config.AppConfig;
-import io.ProjectZ.consumer.MessagePersistenceConsumer;
-import io.ProjectZ.dlt.DeadLetterPublisher;
-import io.ProjectZ.dlt.KafkaDeadLetterPublisher;
-import io.ProjectZ.storage.MessageRepository;
-import io.ProjectZ.storage.MessageRepositoryFactory;
+import io.projectZ.codec.BinaryMessageCodec;
+import io.projectZ.codec.MessageCodec;
+import io.projectZ.config.AppConfig;
+import io.projectZ.consumer.MessagePersistenceConsumer;
+import io.projectZ.dlt.DeadLetterPublisher;
+import io.projectZ.dlt.KafkaDeadLetterPublisher;
+import io.projectZ.storage.MessageRepository;
+import io.projectZ.storage.MessageRepositoryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,6 +1,6 @@
-package io.ProjectZ.model;
+package io.projectZ.model;
 
-import io.ProjectZ.storage.MessageRepository;
+import io.projectZ.storage.MessageRepository;
 
 import java.util.Arrays;
 import java.util.Objects;

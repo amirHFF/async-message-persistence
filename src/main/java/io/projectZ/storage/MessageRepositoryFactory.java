@@ -1,7 +1,7 @@
-package io.ProjectZ.storage;
+package io.projectZ.storage;
 
-import io.ProjectZ.config.AppConfig;
-import io.ProjectZ.consumer.MessagePersistenceConsumer;
+import io.projectZ.config.AppConfig;
+import io.projectZ.consumer.MessagePersistenceConsumer;
 
 /**
  * Chooses a {@link MessageRepository} implementation based on {@code storage.type}.

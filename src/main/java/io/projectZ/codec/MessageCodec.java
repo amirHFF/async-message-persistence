@@ -1,6 +1,6 @@
-package io.ProjectZ.codec;
+package io.projectZ.codec;
 
-import io.ProjectZ.model.ChatMessage;
+import io.projectZ.model.ChatMessage;
 
 /**
  * Translates the raw {@code byte[]} payload polled from Kafka into a {@link ChatMessage}.

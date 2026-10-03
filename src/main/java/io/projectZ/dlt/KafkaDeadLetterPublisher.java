@@ -1,6 +1,6 @@
-package io.ProjectZ.dlt;
+package io.projectZ.dlt;
 
-import io.ProjectZ.config.AppConfig;
+import io.projectZ.config.AppConfig;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;

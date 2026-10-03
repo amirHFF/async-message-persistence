@@ -1,4 +1,4 @@
-package io.ProjectZ.config;
+package io.projectZ.config;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -31,7 +31,7 @@
         <junit.version>5.10.2</junit.version>
         <mockito.version>5.11.0</mockito.version>
 
-        <main.class>io.ProjectZ.App</main.class>
+        <main.class>io.projectZ.App</main.class>
     </properties>
 
     <dependencies>
