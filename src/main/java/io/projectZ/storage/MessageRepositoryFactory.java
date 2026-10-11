@@ -24,6 +24,11 @@ public final class MessageRepositoryFactory {
         String type = config.storageType().toLowerCase();
         return switch (type) {
             case "redis" -> new RedisMessageRepository(config);
+            case "mongodb" -> new MongoMessageRepository(
+                    config.mongodbUri(),
+                    config.mongodbDatabase(),
+                    config.mongodbCollection()
+            );
             default -> throw new IllegalArgumentException("Unsupported storage.type: " + type);
         };
     }

@@ -72,6 +72,13 @@
             <version>${slf4j.version}</version>
         </dependency>
 
+        <!-- MongoDB synchronous Java driver -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>5.8.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

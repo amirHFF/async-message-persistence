@@ -15,7 +15,7 @@ import java.io.Closeable;
  * {@link MessageCodec} or the DLT publisher
  * (Open/Closed principle).
  */
-public interface MessageRepository extends Closeable {
+public interface  MessageRepository extends Closeable {
 
     /**
      * Persists a single message durably. Implementations MUST make the write durable

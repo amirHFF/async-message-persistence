@@ -104,6 +104,18 @@ public final class AppConfig {
         return getInt("redis.so.timeout.ms", 3000);
     }
 
+    public String mongodbUri() {
+        return get("mongodb.uri", "mongodb://localhost:27017");
+    }
+
+    public String mongodbDatabase() {
+        return get("mongodb.database", "chat_archive");
+    }
+
+    public String mongodbCollection() {
+        return get("mongodb.collection", "messages");
+    }
+
     // ---- Retry / resilience ----
     public int storageMaxRetries() {
         return getInt("storage.retry.max.attempts", 3);
