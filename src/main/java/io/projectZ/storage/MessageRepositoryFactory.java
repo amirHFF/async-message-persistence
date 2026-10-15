@@ -20,16 +20,36 @@ public final class MessageRepositoryFactory {
     private MessageRepositoryFactory() {
     }
 
+
     public static MessageRepository create(AppConfig config) {
-        String type = config.storageType().toLowerCase();
+        String type = config.storageType().trim().toLowerCase();
+
         return switch (type) {
-            case "redis" -> new RedisMessageRepository(config);
-            case "mongodb" -> new MongoMessageRepository(
-                    config.mongodbUri(),
-                    config.mongodbDatabase(),
-                    config.mongodbCollection()
-            );
-            default -> throw new IllegalArgumentException("Unsupported storage.type: " + type);
+            case "redis" ->
+                    new RedisMessageRepository(config);
+
+            case "mongodb" ->
+                    new MongoMessageRepository(
+                            config.mongodbUri(),
+                            config.mongodbDatabase(),
+                            config.mongodbCollection()
+                    );
+
+            case "both" ->
+                    new CompositeMessageRepository(
+                            new RedisMessageRepository(config),
+                            new MongoMessageRepository(
+                                    config.mongodbUri(),
+                                    config.mongodbDatabase(),
+                                    config.mongodbCollection()
+                            )
+                    );
+
+            default ->
+                    throw new IllegalArgumentException(
+                            "Unsupported storage.type: " + type
+                    );
         };
     }
+
 }
