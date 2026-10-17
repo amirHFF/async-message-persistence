@@ -93,7 +93,7 @@ public final class AppConfig {
     }
 
     public String redisPassword() {
-        return get("redis.password", null);
+        return get("redis.password", "_project-z_");
     }
 
     public int redisConnectTimeoutMs() {

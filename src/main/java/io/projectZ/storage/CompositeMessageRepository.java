@@ -22,13 +22,15 @@ public final class CompositeMessageRepository implements MessageRepository {
     public void save(ChatMessage message, byte[] rawPayload)
             throws StorageException {
 
-        // First persist to Redis.
-        redisRepository.save(message, rawPayload);
-
         // Then persist to MongoDB.
         // If this fails, the Kafka offset must not advance.
         // A retry will safely repeat the Redis write and retry MongoDB.
         mongoRepository.save(message, rawPayload);
+
+        // First persist to Redis.
+        redisRepository.save(message, rawPayload);
+
+
     }
 
     @Override
