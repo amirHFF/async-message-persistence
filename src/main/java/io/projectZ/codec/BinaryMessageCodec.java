@@ -55,13 +55,14 @@ public final class BinaryMessageCodec implements MessageCodec {
             String conversationId = avroMessage.getConversationId();
             String senderId = avroMessage.getSenderId();
             String receiverId = avroMessage.getReceiverId();
+            String type = avroMessage.getType();
             long timestamp = avroMessage.getTimestamp();
 
             ByteBuffer payloadBuffer = avroMessage.getRawPayload();
             byte[] payload = new byte[payloadBuffer.remaining()];
             payloadBuffer.get(payload);
 
-            return new ChatMessage(messageId, conversationId, senderId, receiverId, timestamp, payload);
+            return new ChatMessage(messageId,type, conversationId, senderId, receiverId, timestamp, payload);
         } catch (IOException | AvroRuntimeException | IllegalArgumentException e) {
             // IllegalArgumentException: UUID.fromString on a malformed id.
             // AvroRuntimeException/IOException: truncated or otherwise malformed Avro bytes.

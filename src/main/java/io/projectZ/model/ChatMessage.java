@@ -25,15 +25,17 @@ import java.util.Objects;
 public final class ChatMessage {
 
     private final String messageId;
+    private final String type;
     private final String conversationId;
     private final String senderId;
     private final String receiverId;
     private final long timestampEpochMillis;
     private final byte[] rawPayload;
 
-    public ChatMessage(String messageId, String conversationId, String senderId, String receiverId,
-                        long timestampEpochMillis, byte[] rawPayload) {
+    public ChatMessage(String messageId, String type, String conversationId, String senderId, String receiverId,
+                       long timestampEpochMillis, byte[] rawPayload) {
         this.messageId = Objects.requireNonNull(messageId, "messageId");
+        this.type = type;
         this.conversationId = Objects.requireNonNull(conversationId, "conversationId");
         this.senderId = Objects.requireNonNull(senderId, "senderId");
         this.receiverId = Objects.requireNonNull(receiverId, "receiverId");
@@ -47,6 +49,10 @@ public final class ChatMessage {
 
     public String getMessageId() {
         return messageId;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getConversationId() {

@@ -12,6 +12,7 @@ import org.bson.types.Binary;
 
 import io.projectZ.model.ChatMessage;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
@@ -48,13 +49,13 @@ public final class MongoMessageRepository implements MessageRepository {
 
         Document document = new Document("_id", message.getMessageId())
                 .append("messageId", message.getMessageId())
+                .append("messageId", message.getType())
                 .append("conversationId", message.getConversationId())
                 .append("senderId", message.getSenderId())
                 .append("receiverId", message.getReceiverId())
                 .append("timestampEpochMillis", message.getTimestampEpochMillis())
                 .append("timestamp", new Date(message.getTimestampEpochMillis()))
-                .append("messagePayload", new Binary(message.getRawPayload()))
-                .append("rawKafkaPayload", new Binary(rawPayload))
+                .append("content", new String(message.getRawPayload() , StandardCharsets.UTF_8))
                 .append("storageFormat", "AVRO");
 
         try {
