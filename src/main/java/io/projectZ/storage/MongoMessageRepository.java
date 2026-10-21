@@ -48,8 +48,7 @@ public final class MongoMessageRepository implements MessageRepository {
         Objects.requireNonNull(rawPayload, "rawPayload");
 
         Document document = new Document("_id", message.getMessageId())
-                .append("messageId", message.getMessageId())
-                .append("messageId", message.getType())
+                .append("type", message.getType())
                 .append("conversationId", message.getConversationId())
                 .append("senderId", message.getSenderId())
                 .append("receiverId", message.getReceiverId())
