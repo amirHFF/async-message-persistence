@@ -65,10 +65,10 @@ public final class MongoMessageRepository implements MessageRepository {
 
             // Kafka may redeliver a message after a successful write
             // if committing the offset failed.
-            if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
-                verifyDuplicate(message.getMessageId(), rawPayload);
-                return;
-            }
+ //            if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
+//                verifyDuplicate(message.getMessageId(), rawPayload);
+//                return;
+//            }
 
             throw new StorageException(
                     "MongoDB write failed for message " + message.getMessageId(),
